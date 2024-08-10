@@ -66,7 +66,7 @@ export default function TextForm(props) {
   
    
  
-  <div className="container my-3"><h2>Your Text Summary</h2>
+  <div className="container my-3"><h2>Your Text Summary s</h2>
   <p> {wordCount} words and {text.length} characters</p>
   <p> {0.0008*wordCount} Minutes read</p>
 

@@ -24,6 +24,28 @@ export default function TextForm(props) {
     let newText = ""
     setText(newText);
   }
+  const handleSentenseclick = ()=>{
+    
+    let sentences = text.match(/[^.!?]+[.!?]*/g) || [];
+    // console.log(sentences)
+    const firstWords = sentences.map(sentence => {
+      // Split the sentence into words and get the first word
+      const words = sentence.trim().split(' ').filter(Boolean);
+     if (words.length > 0) {
+            words[0] = words[0].charAt(0).toUpperCase()+ words[0].slice(1).toLowerCase(); // Capitalize the first word
+
+            for (let i = 1; i < words.length; i++) {
+              words[i] = words[i].toLowerCase();
+          }
+        }
+        return words.join(' ');
+
+    });
+    const paragraph = firstWords.join(' ');
+    setText(paragraph);
+    
+    
+    } 
   const handleUpChange = (event)=>{
     // console.log("change up")
     setText(event.target.value)
@@ -46,8 +68,20 @@ export default function TextForm(props) {
                 setText(capitalizedSentence);
   }
    
-  
-  
+  const speak = () => {
+    let msg = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(msg);
+    const toogle = document.getElementById('toggle')
+    if (toogle.textContent === "Speak") {
+        toogle.innerHTML = "Stop"
+    }
+    else {
+        toogle.innerHTML = "Speak"
+        if (toogle.innerHTML === "Speak"){
+            window.speechSynthesis.cancel()
+        }
+    }
+}
  
   return (
     <div>
@@ -63,6 +97,9 @@ export default function TextForm(props) {
   <button className="btn btn-primary mx-1" onClick={handleLowclick}>Convert to Lower case</button>
   <button className="btn btn-primary mx-1" onClick={handleClearclick}>Clear text</button>
   < button className="btn btn-primary mx-1" onClick={handleCapitalcase}>Captial Case</button>
+  <button type="submit" onClick={speak} className="btn btn-warning mx-2 my-2" id="toggle">Speak</button>
+  <button onClick={handleSentenseclick} className="btn btn-warning mx-2 my-2" id="toggle">Sentense Case</button>
+
   
    
  

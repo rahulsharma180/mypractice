@@ -84,16 +84,16 @@ export default function TextForm(props) {
 }
  
   return (
-    <div>
-   <h1>{props.heading}</h1>
+    <div className='container'style={{color: props.mode==='dark'?'white':'#042743'}}>
+   <h1 className='mb-4'>{props.heading}</h1>
 
    {/* form start here */}
    
-   <div className="mb-3">
+   <div>
   
-             <textarea className="form-control" value={text} onChange={handleUpChange} id="myBox" rows="12"></textarea>
+             <textarea className="form-control" value={text} onChange={handleUpChange} style={{backgroundColor:props.mode==='dark'?'gray':'white', color: props.mode==='dark'?'white':'#042743'}} id="myBox" rows="12"></textarea>
   </div>
-  <button className="btn btn-primary mx-2" onClick={handleUpclick}>Convert to Upper case</button>
+  <button className="btn btn-primary mx-1 my-3" onClick={handleUpclick}>Convert to Upper case</button>
   <button className="btn btn-primary mx-1" onClick={handleLowclick}>Convert to Lower case</button>
   <button className="btn btn-primary mx-1" onClick={handleClearclick}>Clear text</button>
   < button className="btn btn-primary mx-1" onClick={handleCapitalcase}>Captial Case</button>
@@ -103,12 +103,12 @@ export default function TextForm(props) {
   
    
  
-  <div className="container my-3"><h2>Your Text Summary s</h2>
-  <p> {wordCount} words and {text.length} characters</p>
-  <p> {0.0008*wordCount} Minutes read</p>
+  <div className=" my-3"><h2 style={{ color: props.mode==='dark'?'white':'#042743'}}>Your Text Summary </h2>
+  <p style={{ color: props.mode==='dark'?'white':'#042743'}}> {wordCount} words and {text.length} characters</p>
+  <p style={{ color: props.mode==='dark'?'white':'#042743'}}> {0.0008*wordCount} Minutes read</p>
 
-  <h2>Preview</h2>
-  <p>{text}</p>
+  <h2 style={{ color: props.mode==='dark'?'white':'#042743'}}>Preview</h2>
+  <p style={{ color: props.mode==='dark'?'white':'#042743'}}>{text}</p>
 
 
   

@@ -4,28 +4,64 @@ import React, {useState} from 'react'
 
 export default function TextForm(props) {
 
-  const [text, setText] = useState('Enter your text here');
+  const [text, setText] = useState('');
   const wordCount = text.split(/\s+/).filter(Boolean).length;
 
+
+
+
+
+
   const handleUpclick = ()=>{
+    if (text.trim() === "") {
+      props.showAlert("Error: Input is empty", "danger");  // Show error alert
+      return;
+    }
     // console.log("click up ")
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("Upper the Text", "success");
   }
 
+
+
+
+
   const handleLowclick = ()=>{
+    if (text.trim() === "") {
+      props.showAlert("Error: Input is empty", "danger");  // Show error alert
+      return;
+    }
+
     // console.log("click up ")
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert("Lower the Text", "success");
   }
 
+
+
+
+
   const handleClearclick = ()=>{
+    if (text.trim() === "") {
+      props.showAlert("Error: Input is empty", "danger");  // Show error alert
+      return;
+    }
     // console.log("click Clear ")
     let newText = ""
     setText(newText);
+    props.showAlert("Clear Text", "success");
   }
+
+
+
+
   const handleSentenseclick = ()=>{
-    
+    if (text.trim() === "") {
+      props.showAlert("Error: Input is empty", "danger");  // Show error alert
+      return;
+    }
     let sentences = text.match(/[^.!?]+[.!?]*/g) || [];
     // console.log(sentences)
     const firstWords = sentences.map(sentence => {
@@ -44,7 +80,7 @@ export default function TextForm(props) {
     const paragraph = firstWords.join(' ');
     setText(paragraph);
     
-    
+    props.showAlert("Convert in Sentence case", "success");
     } 
   const handleUpChange = (event)=>{
     // console.log("change up")
@@ -52,6 +88,10 @@ export default function TextForm(props) {
   }
   const handleCapitalcase = ()=>{
       
+    if (text.trim() === "") {
+      props.showAlert("Error: Input is empty", "danger");  // Show error alert
+      return;
+    }
       let sentence = text;
       let words = sentence.split(' ');
       let capitalizedWords = [];
@@ -66,32 +106,62 @@ export default function TextForm(props) {
       }
      let capitalizedSentence = capitalizedWords.join(' ');
                 setText(capitalizedSentence);
+
+                props.showAlert("Convert in Capital case", "success");
+              
   }
    
   const speak = () => {
+
+    if (text.trim() === "") {
+      props.showAlert("Error: Input is empty", "danger");  // Show error alert
+      return;
+    }   
     let msg = new SpeechSynthesisUtterance(text);
+
+ // Reset the button text when the speech ends
+ msg.onend = () => {
+  const toggle = document.getElementById('toggle');
+  toggle.innerHTML = "Speak";
+};
+
+
     window.speechSynthesis.speak(msg);
     const toogle = document.getElementById('toggle')
     if (toogle.textContent === "Speak") {
         toogle.innerHTML = "Stop"
+        
     }
     else {
         toogle.innerHTML = "Speak"
         if (toogle.innerHTML === "Speak"){
             window.speechSynthesis.cancel()
+           
         }
+        
     }
-}
+    props.showAlert("Speak Succesfully", "success");
+  }
  
   return (
     <div className='container'style={{color: props.mode==='dark'?'white':'#042743'}}>
    <h1 className='mb-4'>{props.heading}</h1>
 
    {/* form start here */}
+
+    
    
    <div>
+    {/* Embedded style for placeholder */}
+    <style>
+        {`
+          #myBox::placeholder {
+            color: ${props.mode === 'dark' ? 'white' : 'black'};
+          }
+        `}
+      </style>
   
-             <textarea className="form-control" value={text} onChange={handleUpChange} style={{backgroundColor:props.mode==='dark'?'gray':'white', color: props.mode==='dark'?'white':'#042743'}} id="myBox" rows="12"></textarea>
+             <textarea className="form-control" placeholder="Enter your text here..." value={text} onChange={handleUpChange} style={{backgroundColor:props.mode==='dark'?'#134e7d':'white', color: props.mode==='dark'?'white':'black'}} id="myBox" rows="12"></textarea>
   </div>
   <button className="btn btn-primary mx-1 my-3" onClick={handleUpclick}>Convert to Upper case</button>
   <button className="btn btn-primary mx-1" onClick={handleLowclick}>Convert to Lower case</button>

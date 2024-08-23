@@ -130,13 +130,17 @@ export default function TextForm(props) {
     const toogle = document.getElementById('toggle')
     if (toogle.textContent === "Speak") {
         toogle.innerHTML = "Stop"
+        
     }
     else {
         toogle.innerHTML = "Speak"
         if (toogle.innerHTML === "Speak"){
             window.speechSynthesis.cancel()
+           
         }
+        
     }
+    props.showAlert("Speak Succesfully", "success");
   }
  
   return (

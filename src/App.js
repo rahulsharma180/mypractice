@@ -41,7 +41,7 @@ function App() {
 
   return (
     <> 
-      <Navbar title="New Navbars" aboutText ="About text" mode={mode} toggleMode={toggleMode}/>  
+      <Navbar title="Convert Case" aboutText ="About text" mode={mode} toggleMode={toggleMode}/>  
       <Alert alert={alert}/>
       <div className="container my-3">
         <TextForm showAlert ={showAlert}heading="My Heading" mode={mode}/>
